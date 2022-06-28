@@ -1,0 +1,50 @@
+<h3 class="alert alert-primary p-4  text-black shadow">{{getTitle() | titlecase}} <u><span
+      class="h6">TodoList</span></u>
+</h3>
+
+<div>
+  <div class="input-group mb-3 mt-2">
+    <input type="text" class="form-control me-2" placeholder="Add Your Todo !!" #inputValue [(ngModel)]="inputText">
+    <input type="text" class="form-control" placeholder="Its Description" #descriptionText  [(ngModel)]="descriptionTextv" maxlength="20">
+    
+  </div>
+
+  <button class="btn btn-success mt-2 mb-2 ps-5 pe-5 " (click)="addTodo(inputValue.value,descriptionText.value)">Add</button>
+  <button class="btn btn-danger mt-2 mb-2 ps-5 pe-5 ms-2 " (click)="Store()">Store</button>
+
+</div>
+<table class="table table-striped table-bordered shadow-sm p-4 mb-4 bg-white">
+  <thead>
+    <tr>
+      <th>Index</th>
+      <th>Task</th>
+      <th>Done</th>
+      <th>Status</th>
+      <th>Description</th>
+      <th>Close</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of getTodos() let i = index">
+      <td>{{i+1}}</td>
+      <td>{{item.action}}</td>
+      <td>
+        <div class="form-check form-switch">
+          <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" [(ngModel)]="item.done">
+        </div>
+      </td>
+      <td [ngSwitch]="item.done">
+        <span class="badge bg-success ps-2 pe-2" *ngSwitchCase="true">Yes</span>
+        <span class="badge bg-danger ps-2 pe-2" *ngSwitchCase="false">No</span>
+      </td>
+      <td>
+        <div spellcheck="false" class="bg-light Description text-black p-1 font-monospace">{{item.Desctiption}}</div>
+      </td>
+
+      <td style="text-align: center;width: 59px">
+        <button type="button" class="btn-close" (click)="removeTodo(i)"></button>
+      </td>
+      
+    </tr>
+  </tbody>
+</table>
